@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CafeBurger</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+
+  <!-- Favicons -->
+  <link href="img/logo.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900|Raleway:400,300,700,900" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Libraries CSS Files -->
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="css/style.css" rel="stylesheet">
+<script src=»http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js»></script>
+    <script src="jsCarousel.js" type="text/javascript"></script>
+<link href="jsCarousel.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#jsCarousel').jsCarousel({ onthumbnailclick: function(src) { alert(src); }, autoscroll: true });
+        });
+</script>
+  <!-- =======================================================
+    Template Name: Spot
+    Template URL: https://templatemag.com/spot-bootstrap-freelance-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <!-- Fixed navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        <a class="navbar-brand" href="#"><img src="img/logo.png" width="40px" /></a>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#mn">ЗАКАЗ</a></li>
+          <li><a href="#con">КОНТАКТЫ</a></li>
+          <li><a href="#com">КОМПАНИЯ</a></li>
+          
+        </ul>
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+  </div>
+
+  <div id="headerwrap">
+    <div class="container">
+      <div class="row centered">
+       <div id="wrapper">
+<div class="slider">
+    <div class="slider__wrapper">
+      <div class="slider__item">
+        <div style="height: 550px;"><img src="img/Burger.png" width="100%"/></div>
+      </div>
+      <div class="slider__item">
+        <div style="height: 250px;"><img src="img/Burger1.png" width="100%" /></div>
+      </div>
+      <div class="slider__item">
+        <div style="height: 250px; "><img src="img/Burger2.png" width="100%" /></div>
+      </div>
+      
+    </div>
+    <a class="slider__control slider__control_left" href="#" role="button"></a>
+    <a class="slider__control slider__control_right slider__control_show" href="#" role="button"></a>
+  </div>
+
+  <script>
+    'use strict';
+    var multiItemSlider = (function () {
+      return function (selector, config) {
+        var
+          _mainElement = document.querySelector(selector), // основный элемент блока
+          _sliderWrapper = _mainElement.querySelector('.slider__wrapper'), // обертка для .slider-item
+          _sliderItems = _mainElement.querySelectorAll('.slider__item'), // элементы (.slider-item)
+          _sliderControls = _mainElement.querySelectorAll('.slider__control'), // элементы управления
+          _sliderControlLeft = _mainElement.querySelector('.slider__control_left'), // кнопка "LEFT"
+          _sliderControlRight = _mainElement.querySelector('.slider__control_right'), // кнопка "RIGHT"
+          _wrapperWidth = parseFloat(getComputedStyle(_sliderWrapper).width), // ширина обёртки
+          _itemWidth = parseFloat(getComputedStyle(_sliderItems[0]).width), // ширина одного элемента    
+          _positionLeftItem = 0, // позиция левого активного элемента
+          _transform = 0, // значение транфсофрмации .slider_wrapper
+          _step = _itemWidth / _wrapperWidth * 100, // величина шага (для трансформации)
+          _items = []; // массив элементов
+        // наполнение массива _items
+        _sliderItems.forEach(function (item, index) {
+          _items.push({ item: item, position: index, transform: 0 });
+        });
+
+        var position = {
+          getMin: 0,
+          getMax: _items.length - 1,
+        }
+
+        var _transformItem = function (direction) {
+          if (direction === 'right') {
+            if ((_positionLeftItem + _wrapperWidth / _itemWidth - 1) >= position.getMax) {
+              return;
+            }
+            if (!_sliderControlLeft.classList.contains('slider__control_show')) {
+              _sliderControlLeft.classList.add('slider__control_show');
+            }
+            if (_sliderControlRight.classList.contains('slider__control_show') && (_positionLeftItem + _wrapperWidth / _itemWidth) >= position.getMax) {
+              _sliderControlRight.classList.remove('slider__control_show');
+            }
+            _positionLeftItem++;
+            _transform -= _step;
+          }
+          if (direction === 'left') {
+            if (_positionLeftItem <= position.getMin) {
+              return;
+            }
+            if (!_sliderControlRight.classList.contains('slider__control_show')) {
+              _sliderControlRight.classList.add('slider__control_show');
+            }
+            if (_sliderControlLeft.classList.contains('slider__control_show') && _positionLeftItem - 1 <= position.getMin) {
+              _sliderControlLeft.classList.remove('slider__control_show');
+            }
+            _positionLeftItem--;
+            _transform += _step;
+          }
+          _sliderWrapper.style.transform = 'translateX(' + _transform + '%)';
+        }
+
+        // обработчик события click для кнопок "назад" и "вперед"
+        var _controlClick = function (e) {
+          if (e.target.classList.contains('slider__control')) {
+            e.preventDefault();
+            var direction = e.target.classList.contains('slider__control_right') ? 'right' : 'left';
+            _transformItem(direction);
+          }
+        };
+
+        var _setUpListeners = function () {
+          // добавление к кнопкам "назад" и "вперед" обрботчика _controlClick для событя click
+          _sliderControls.forEach(function (item) {
+            item.addEventListener('click', _controlClick);
+          });
+        }
+
+        // инициализация
+        _setUpListeners();
+
+        return {
+          right: function () { // метод right
+            _transformItem('right');
+          },
+          left: function () { // метод left
+            _transformItem('left');
+          }
+        }
+
+      }
+    }());
+
+    var slider = multiItemSlider('.slider')
+
+  </script>
+        
+    </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- headerwrap -->
+
+  <div class="container w">
+    <div class="row centered">
+      <br><br>
+      <div class="col-lg-3">
+          <img src="https://image.flaticon.com/icons/png/512/63/63000.png" width="40px" class="filter"/>
+        <h4>БУРГЕРЫ</h4>
+        <p>Приготовленный на огне котлета из 100% мяса, сочный помидор, свежий нарезанный салат, густой майонез, хрустящие огурчики и свежий лук на мягкой булочке собственного приготовления</p>
+      </div>
+      <!-- col-lg-4 -->
+<div class="col-lg-3">
+        <img src="https://image.flaticon.com/icons/png/512/93/93107.png" width="40px" class="filter"/>
+        <h4>ГАРНИРЫ</h4>
+          <p>Горячий и свежий картофель фри - золотистые и хрустящие ломтики отлично дополнят любой обед.</p><hr /><p> Очень вкусные, яркие и ароматные запечённые овощи в маринаде с зеленью.
+          </p>
+      </div>
+      <div class="col-lg-3">
+        <img src="https://image.flaticon.com/icons/png/512/129/129232.png" width="40px" class="filter"/>
+        <h4>МОРСЫ</h4>
+        <p>Морс является освежающим витаминным не газированным напитком, который готовят из ягод, фруктов с добавлением воды и сахара. Этот напиток отлично утоляет жажду, помогает организму восстановить силы.</p>
+      </div>
+      <!-- col-lg-4 -->
+
+      
+         <div class="col-lg-3">
+        <img src="https://image.flaticon.com/icons/png/512/112/112417.png" width="40px" class="filter"/>
+        <h4>ЧАЙ</h4>
+        <p>Вкус чёрного чая лишён горечи, настой имеет оранжевый цвет. Чай обладает сложным действием, одновременно тонизирующим и успокаивающим.</p><hr/><p> Зеленый чай, он уникально полезен, может сделать наше здоровье крепче, а красоту – долговечнее</p>
+      </div>
+      <!-- col-lg-4 -->
+    </div>
+    <!-- row -->
+    <br>
+    <br>
+  </div>
+  <!-- container -->
+
+  <!-- PORTFOLIO SECTION -->
+  <div id="dg">
+    <div class="container" id="mn">
+      <div class="row centered">
+        <h4>МЕНЮ</h4>
+        <br>
+        <div class="col-lg-3">
+          <div class="tilt">
+            <a href="#"><img src="img/but.png" alt="" width="150px" height="150px"></a>
+          </div>
+           <table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Бургеры</th>
+      <th scope="col">210 гр</th>
+      <th scope="col">350 гр</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>С говядиной</td>
+      <td>150 р</td>
+      <td>250 р</td>
+    </tr>
+    <tr>
+      <td>С курицей</td>
+      <td>98 p</td>
+      <td>178 p</td>
+    </tr>
+    <tr>
+      <td>Вегатарианский</td>
+      <td>79 p</td>
+      <td>169 p</td>
+    </tr>
+  </tbody>
+</table>
+         
+            
+        </div>
+ <div class="col-lg-3">
+          <div class="tilt">
+            <a href="#"><img src="img/mor.png" height="150px" alt="" width="150px"></a>
+          </div>
+             <table class="table ">
+  <thead>
+    <tr>
+      
+      <th scope="col">Гарниры</th>
+      <th scope="col">150 гр</th>
+      <th scope="col">230 гр</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Картофиль фри</td>
+      <td>124 р</td>
+      <td>176 р</td>
+    </tr>
+    <tr>
+      <td>Печеные овощи</td>
+      <td>130 р</td>
+      <td>188 р</td>
+    </tr>
+    
+  </tbody>
+</table>
+        </div>
+        <div class="col-lg-3">
+          <div class="tilt">
+            <a href="#"><img src="img/gar.png" height="150px" alt="" width="180px"></a>
+          </div>
+              <table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Морс</th>
+      <th scope="col">250 мл</th>
+      <th scope="col">500 мл</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Апельсиновый</td>
+      <td>60 р</td>
+      <td>119 р</td>
+    </tr>
+    <tr>
+      <td>Ягодный</td>
+      <td>58 р</td>
+      <td>110 р</td>
+    </tr>
+    <tr>
+      <td>Облепиховый</td>
+      <td>67 р</td>
+      <td>144 р</td>
+    </tr>
+  </tbody>
+</table>  
+        </div>
+
+       
+          <div class="col-lg-3">
+          <div class="tilt">
+            <a href="#"><img src="img/cha.png" alt="" width="170px" height="150px"></a>
+          </div>
+                   <table class="table">
+  <thead>
+    <tr>
+      
+      <th scope="col">Чай</th>
+      <th scope="col">250 мл</th>
+      <th scope="col">500 мл</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Черный</td>
+      <td>50 р</td>
+      <td>98 р</td>
+    </tr>
+    <tr>
+      <td>Зеленый</td>
+      <td>46 р</td>
+      <td>88 р</td>
+    </tr>
+  </tbody>
+</table>
+        </div>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+      <div id="body_button">
+    <div class="button_hola"><span data-toggle="modal" data-target="#myModal" href="#myModal">Взять с собой</span></div>
+    <div class="button_hola"><span span data-toggle="modal" data-target="#myModal" href="#myModal">Покушать в кофе</span></div>
+          
+</div>
+
+  </div>
+  <!-- DG -->
+
+  <!-- FEATURE SECTION -->
+  <div class="container wb">
+    <div class="row centered">
+      <br><br>
+      <div class="col-lg-8 col-lg-offset-2" >
+        <h4 id="com">О компании</h4>
+        <p>Быстрая и здоровая еда является отличительной чертой нашего бренда. Наше кофе известно вкусом фирменых блюд и отличным соотнощением цены и качества. Мы молодая и развивающаяся сеть бургер - кофе, основной задачей которой является накормить гостя честным продуктом по честной цене.</p>
+        <p><br/><br/></p>
+      </div>
+      <div class="col-lg-2"></div>
+      <div class="col-lg-10 col-lg-offset-1">
+        <img class="img-responsive" src="https://www.ampir.ru/blog/wp-content/uploads/2019/11/07.jpg" alt="">
+      </div>
+    </div>
+    <!-- row -->
+  </div>
+  <!-- container -->
+
+
+  
+
+  <!-- FOOTER -->
+  <div id="f">
+    <div class="container">
+      <div class="row centered" id="con">
+        <a href="#"><i class="fa fa-vk"></i></a>
+          <a href="#"><i class="fa fa-instagram"></i></a>
+          <p><br> 
+Кемерово. Шахтеров 80. +7(XXX)-XXX-XX-XX <br>
+BurgerCofe@example.com</p>
+      </div>
+      <!-- row -->
+    </div>
+    <!-- container -->
+  </div>
+  <!-- Footer -->
+
+  <!-- MODAL FOR CONTACT -->
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">Взять с собой</h4>
+        </div>
+        <div class="modal-body">
+          <div class="row centered">
+            <p>Мы доступны 24/7, поэтому рады вам в любое время.</p>
+            <p>
+              Шахтеров 80<br/> Кемерово.<br/> +7(XXX)-XXX-XX-XX<br/> BurgerCofe@example.com
+            </p>
+            <form class="contact-form php-mail-form" role="form" action="contactform/contactform.php" method="POST">
+
+              <div class="form-group">
+                <div>
+                   <table class="table" style="width: 400px;">
+  <thead>
+    <tr>
+      
+      <th scope="col">Бургеры</th>
+      <th scope="col">210 гр</th>
+      <th scope="col">350 гр</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>С говядиной</td>
+      <td>150 р <button class="add_item" data-id="1" data-title="Бургер с говядиной стандартный" data-price="150" data-img="" >+</button></td>
+      <td>250 р <button class="add_item" data-id="2" data-title="Бургер с говядиной большой" data-price="250" data-img="" >+</button></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>С курицей</td>
+      <td>98 p <button class="add_item" data-id="3" data-title="Бургер с курицей стандартный" data-price="98" data-img="" >+</button></td>
+      <td>178 p <button class="add_item" data-id="4" data-title="Бургер с курицей большой" data-price="178" data-img="" >+</button></td>
+    </tr>
+    <tr>
+      <td>Вегатарианский</td>
+      <td>79 p <button class="add_item" data-id="5" data-title="Бургер вегатарианский стандартный" data-price="79" data-img="" >+</button></td>
+      <td>169 p <button class="add_item" data-id="6" data-title="Бургер вегатарианский большой" data-price="169" data-img="" >+</button></td>
+    </tr>
+  </tbody>
+</table>
+                </div>
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <table class="table " style="width: 400px;">
+  <thead>
+    <tr>
+      
+      <th scope="col">Гарниры</th>
+      <th scope="col">150 гр</th>
+      <th scope="col">230 гр</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Картофиль фри</td>
+      <td>124 р  <button class="add_item" data-id="7" data-title="Фри стандартная порция" data-price="124" data-img="" >+</button></td>
+      <td>176 р<button class="add_item" data-id="8" data-title="Фри большая порция" data-price="176" data-img="" >+</button></td>
+    </tr>
+    <tr>
+      <td>Печеные овощи</td>
+      <td>130 р <button class="add_item" data-id="9" data-title="Печеные овощи стандартная порция" data-price="130" data-img="" >+</button></td>
+      <td>188 р <button class="add_item" data-id="10" data-title="Печеные овощи большая порция порция" data-price="188" data-img="" >+</button></td>
+    </tr>
+    
+  </tbody>
+</table>
+                <div class="validate"></div>
+              </div>
+              <div class="form-group">
+                <table class="table"  style="width: 400px;">
+  <thead>
+    <tr>
+      
+      <th scope="col">Морс</th>
+      <th scope="col">250 мл</th>
+      <th scope="col">500 мл</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Апельсиновый</td>
+      <td>60 р <button class="add_item" data-id="11" data-title="Апельсиновый 250мл" data-price="60" data-img="" >+</button></td>
+      <td>119 р <button class="add_item" data-id="12" data-title="Апельсиновый 500мл" data-price="119" data-img="" >+</button></td>
+    </tr>
+    <tr>
+      <td>Ягодный</td>
+      <td>58 р <button class="add_item" data-id="13" data-title="Ягодный 250мл" data-price="58" data-img="" >+</button></td>
+      <td>110 р <button class="add_item" data-id="14" data-title="Ягодный 500мл" data-price="110" data-img="" >+</button></td>
+    </tr>
+    <tr>
+      <td>Облепиховый</td>
+      <td>67 р <button class="add_item" data-id="15" data-title="Облепиховый 250мл" data-price="67" data-img="" >+</button></td>
+      <td>144 р <button class="add_item" data-id="16" data-title="Облепиховый 500мл" data-price="144" data-img="" >+</button></td>
+    </tr>
+  </tbody>
+</table>  
+                <div class="validate"></div>
+              </div>
+
+              <div class="form-group">
+                          <table class="table" style="width: 400px;">
+  <thead>
+    <tr>
+      
+      <th scope="col">Чай</th>
+      <th scope="col">250 мл</th>
+      <th scope="col">500 мл</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      
+      <td>Черный</td>
+      <td>50 р <button class="add_item" data-id="17" data-title="Черный 250мл" data-price="50" data-img="" >+</button></td>
+      <td>98 р <button class="add_item" data-id="18" data-title="Черный 500мл" data-price="98" data-img="" >+</button></td>
+    </tr>
+    <tr>
+      <td>Зеленый</td>
+      <td>46 р <button class="add_item" data-id="19" data-title="Зеленый 250мл" data-price="46" data-img="" >+</button></td>
+      <td>88 р <button class="add_item" data-id="20" data-title="Зеленый 500мл" data-price="88" data-img="" >+</button></td>
+    </tr>
+  </tbody>
+</table>
+                <div class="validate"></div>
+              </div>
+
+
+              <div class="form-send">
+                <button type="submit" class="btn btn-large">Заказать</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  <div id="copyrights">
+    <div class="container">
+      <p>
+        &copy; Все права защищены
+      </p>
+    
+    </div>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="lib/php-mail-form/validate.js"></script>
+  <script src="lib/chart/chart.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="js/main.js"></script>
+
+</body>
+</html>
